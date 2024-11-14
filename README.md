@@ -37,6 +37,10 @@ Neste código, nós criamos uma interface no Streamlit para analisar e comparar 
 ## Conclusões
 ## Video de apresentação
 [Link](https://youtu.be/f_4I5dI4NwM)
-[![Assista ao vídeo](https://img.youtube.com/vi/f_4I5dI4NwM/0.jpg)](https://youtu.be/f_4I5dI4NwM)
+<iframe>
+  width="300"
+  height="200"
+  src="https://youtu.be/f_4I5dI4NwM"
+</iframe>
 ## Artigo
 
