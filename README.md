@@ -36,10 +36,6 @@ Com o arquivo do LLM Bert gerado pudemos aplicar o pré-processamento, treino e 
 Neste código, nós criamos uma interface no Streamlit para analisar e comparar as avaliações ue até então analisamos. Primeiramente, carregamos e refinamos os dados, em seguida, calculamos as porcentagens de sentimentos (positivo, negativo e neutro) por aplicativo, utilizando as colunas de sentimentos reais e previstas pelos modelos (sentiment, label, sentiment_pred e label_pred). Seguindo, ordenamos os bancos com base na porcentagem de sentimentos positivos e exibimos um ranking que compara os valores reais e previstos de cada banco.
 ## Conclusões
 ## Video de apresentação
-
+[Link](https://youtu.be/f_4I5dI4NwM)
 ## Artigo
-[EDA - Acidentes Fatais no Estado de SP](https://colab.research.google.com/drive/1eBFmKLC0u8m2B3IMQ4IEhNE0mwFQGg6H?usp=sharing)
-## Link do vídeo
-[Apresentação das analises de acidentes fatais em SP](https://youtu.be/pRjwdAtl5Ks)
-## Link do Artigo
-Disponível em [DatafolioAcidentesSP](https://github.com/PedroHein/ECM-514_EDA_AcidentesSP/blob/main/Datafolio_AcidentesFataisSP.pdf)
+
