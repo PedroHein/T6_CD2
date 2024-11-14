@@ -16,12 +16,12 @@ def calcular_porcentagens(sentimentos_por_banco):
             }
     return porcentagens_por_banco
 
-# Função para classificar os bancos com base na porcentagem de sentimento positivo
+# Função para classificar os bancos com base na porcentagem de sentimentos positivos
 def ranking_bancos(sentiment_percentages):
     ranked_bancos = sorted(sentiment_percentages.items(), key=lambda item: item[1]['POSITIVE'], reverse=True)
     return ranked_bancos
 
-# Dicionário com os logotipos dos bancos
+# Imagens dos logotipos dos bancos
 bank_logos = {
     "Itau": "images/itau-logo.png",
     "Nubank": "images/nubank-logo.png",
@@ -47,15 +47,14 @@ df_short_new['at'] = pd.to_datetime(df_short_new['at'])
 # Criando a interface do Streamlit
 st.title("Ranking de Apps de Bancos Mais Bem Avaliados da Google Play")
 
-# Seleção de período com calendário
+# Calendário para selecionar as datas
 date_range = st.date_input("Selecione o Período para a Análise", [])
 
-# Verifica se o usuário selecionou duas datas (início e fim do período)
 if len(date_range) == 2:
     start_date, end_date = date_range
     df_reviews_filtered = df_short_new[(df_short_new['at'] >= pd.to_datetime(start_date)) & (df_short_new['at'] <= pd.to_datetime(end_date))]
 
-    # Calculando os sentimentos por banco com a coluna 'sentiment'
+    # Separando por banco os sentimentos da coluna 'sentiment'
     sentimentos_por_banco_sentiment = {}
     for index, row in df_reviews_filtered.iterrows():
         app_id = row['appId']
@@ -67,10 +66,10 @@ if len(date_range) == 2:
         sentimentos_por_banco_sentiment[app_id][sentiment] += 1
         sentimentos_por_banco_sentiment[app_id]['TOTAL'] += 1
 
-    # Calculando as porcentagens de sentimentos por banco com a coluna 'sentiment'
+    # Calculando as porcentagens por banco com a coluna 'sentiment'
     porcentagens_por_banco_sentiment = calcular_porcentagens(sentimentos_por_banco_sentiment)
 
-    # Calculando os sentimentos por banco com a coluna 'label'
+    # Separando por banco os sentimentos da coluna 'label'
     sentimentos_por_banco_label = {}
     for index, row in df_reviews_filtered.iterrows():
         app_id = row['appId']
@@ -82,14 +81,14 @@ if len(date_range) == 2:
         sentimentos_por_banco_label[app_id][sentiment] += 1
         sentimentos_por_banco_label[app_id]['TOTAL'] += 1
 
-    # Calculando as porcentagens de sentimentos por banco com a coluna 'label'
+    # Calculando as porcentagens por banco com a coluna 'label'
     porcentagens_por_banco_label = calcular_porcentagens(sentimentos_por_banco_label)
 
-    # Calculando os sentimentos previstos por banco com a coluna 'sentiment_pred'
+    # Separando por banco os sentimentos previstos da coluna 'sentiment_pred'
     sentimentos_por_banco_sentiment_pred = {}
     for index, row in df_reviews_filtered.iterrows():
         app_id = row['appId']
-        sentiment = row['sentiment_pred']  # Coluna de sentimentos previstos
+        sentiment = row['sentiment_pred'] 
 
         if app_id not in sentimentos_por_banco_sentiment_pred:
             sentimentos_por_banco_sentiment_pred[app_id] = {'POSITIVE': 0, 'NEGATIVE': 0, 'NEUTRAL': 0, 'TOTAL': 0}
@@ -97,14 +96,14 @@ if len(date_range) == 2:
         sentimentos_por_banco_sentiment_pred[app_id][sentiment] += 1
         sentimentos_por_banco_sentiment_pred[app_id]['TOTAL'] += 1
 
-    # Calculando as porcentagens de sentimentos previstos por banco
+    # Calculando as porcentagens sentimentos previstos por banco da coluna 'sentiment_pred'
     porcentagens_por_banco_sentiment_pred = calcular_porcentagens(sentimentos_por_banco_sentiment_pred)
 
-    # Calculando os sentimentos previstos por banco com a coluna 'label_pred'
+    # Separando por banco os sentimentos previstos da coluna 'label_pred'
     sentimentos_por_banco_label_pred = {}
     for index, row in df_reviews_filtered.iterrows():
         app_id = row['appId']
-        sentiment = row['label_pred']  # Coluna de labels previstos
+        sentiment = row['label_pred']
 
         if app_id not in sentimentos_por_banco_label_pred:
             sentimentos_por_banco_label_pred[app_id] = {'POSITIVE': 0, 'NEGATIVE': 0, 'NEUTRAL': 0, 'TOTAL': 0}
@@ -122,7 +121,7 @@ if len(date_range) == 2:
     st.subheader("Ranking - Comparativo Score Real vs Score LLM Bert")
     
     st.write("Banco - Score LLM Bert")
-    st.write("Score Real - Predição Real - Predição LLM Bert - Diferença Real - Diferença LLM Bert")
+    st.write("Score Real - Predição RandomForest - Predição RandomForest - Diferença Real - Diferença LLM Bert")
 
     for i, (bank_id, percentages) in enumerate(ranking_label):
         sentiment_pos = porcentagens_por_banco_sentiment.get(bank_id, {}).get('POSITIVE', 0)
