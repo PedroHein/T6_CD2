@@ -9,8 +9,33 @@ Este estudo desenvolve um sistema automatizado para medir a satisfação dos usu
 ## Documentação do Projeto
 O Projeto é composto de 2 arquivos principais:
 - main.py
-- auxiliar.py
-Não é necessário executar o arquivo auxiliar.py, pois ja geramos o arquivo final para a utilização no main.py. Mas caso queira testar ou gerar dados mais atualizados, fique a vontade!! Tenha cuidado apenas com o tempo de execução, visto que o processo do LLM Bert é longo. Não esqueça de instalar as bibliotecas!!
+- webscraping.py
+- llmbert.py
+- classificationmodels.py
+Apenas o arquivo main.py deve ser executado. Os outros arquivos foram utilizados para gerar nossa base final com os sentimentos de cada modelo.
+## webscraping.py
+Neste arquivo utilizamos a biblioteca google_play_scraper para extrair os comentários de cada aplicativo do Google Play Store. A primeira etapa consistiu na definição dos aplicativos a serem analisados, foram eles: 
+- Itaú
+- Nubank
+- Banco do Brasil
+- Bradesco
+- Santander
+- C6 bank
+- XP investimentos
+- Banco Inter
+Posteriormente, aplicamos alguns filtros de idioma, aplicamos também o sort.newest para obter as avaliações mais recentes, e por fim limitamos um número máximo de 8000 avaliações por aplicativo, o que nos proporcionou uma amostra ampla e variada para a análise de sentimentos.
+Após rodar o código, extraimos o app_reviews.csv.
+## llmbert.py
+Com o arquivo do WebScraping gerado, utilizamos o FinBERT (modelo aberto https://huggingface.co/lucas-leme/FinBERT-PT-BR treinado com 1.4 milhões de textos do mercado financeiro em português para análise de sentimento) para realizar as análises de sentimentos e classificações das avaliações de cada usuário. Ele nos permite classificar se a avaliação foi positiva, neutra ou negativa de acordo com o comentário do próprio usuário. 
+Após executar o código, extraimos o arquivo df_short.csv.
+## classificationmodels.py
+Com o arquivo do LLM Bert gerado pudemos aplicar o pré-processamento, treino e avaliação de modelos de classificação. Primeiro, utilizamos o LabelEncoder para converter as colunas de sentimentos e rótulos em valores numéricos. Em seguida, vetorizamos os textos dos comentários com TfidfVectorizer. Dividimos o dataset para treinar e testar os modelos, então treinamos e comparamos diversos modelos de classificação, escolhendo o RandomForestClassifier como o melhor para prever os sentimentos e rótulos (Acurácia de aproximadamente 86%). Após gerar as previsões salvamos o resultado final em df_short_new.csv.
+## main.py
+Neste código, nós criamos uma interface no Streamlit para analisar e comparar as avaliações ue até então analisamos. Primeiramente, carregamos e refinamos os dados, em seguida, calculamos as porcentagens de sentimentos (positivo, negativo e neutro) por aplicativo, utilizando as colunas de sentimentos reais e previstas pelos modelos (sentiment, label, sentiment_pred e label_pred). Seguindo, ordenamos os bancos com base na porcentagem de sentimentos positivos e exibimos um ranking que compara os valores reais e previstos de cada banco.
+## Conclusões
+## Video de apresentação
+
+## Artigo
 [EDA - Acidentes Fatais no Estado de SP](https://colab.research.google.com/drive/1eBFmKLC0u8m2B3IMQ4IEhNE0mwFQGg6H?usp=sharing)
 ## Link do vídeo
 [Apresentação das analises de acidentes fatais em SP](https://youtu.be/pRjwdAtl5Ks)
