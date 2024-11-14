@@ -121,7 +121,7 @@ if len(date_range) == 2:
     st.subheader("Ranking - Comparativo Score Real vs Score LLM Bert")
     
     st.write("Banco - Score LLM Bert")
-    st.write("Score Real - Predição RandomForest - Predição RandomForest - Diferença Real - Diferença LLM Bert")
+    st.write("Score Real - Predição RandomForest Real - Predição RandomForest Bert - Diferença Real - Diferença Bert")
 
     for i, (bank_id, percentages) in enumerate(ranking_label):
         sentiment_pos = porcentagens_por_banco_sentiment.get(bank_id, {}).get('POSITIVE', 0)
