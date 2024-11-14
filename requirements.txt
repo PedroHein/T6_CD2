@@ -1,6 +1,10 @@
-streamlit
 pandas
+scikit-learn
+streamlit
 numpy
 matplotlib
 seaborn
-IPython
+tqdm
+google-play-scraper
+torch
+transformers

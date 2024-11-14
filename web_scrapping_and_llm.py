@@ -8,15 +8,11 @@ from sklearn.naive_bayes import BernoulliNB, GaussianNB, MultinomialNB
 from sklearn.metrics import accuracy_score
 from sklearn.feature_extraction.text import TfidfVectorizer
 import numpy as np
-import pandas as pd
-import matplotlib.pyplot as plt
-import seaborn as sns
 import streamlit as st
 from tqdm import tqdm
 from google_play_scraper import Sort, reviews
 import os
-import torch
-from transformers import BertTokenizer, BertForSequenceClassification, AutoTokenizer, AutoModelForSequenceClassification
+from transformers import BertForSequenceClassification, AutoTokenizer
 from transformers import pipeline
 
 # Google play scraper: https://github.com/JoMingyu/google-play-scraper
