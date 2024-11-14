@@ -12,6 +12,7 @@ O Projeto é composto de 2 arquivos principais:
 - webscraping.py
 - llmbert.py
 - classificationmodels.py
+
 Apenas o arquivo main.py deve ser executado. Os outros arquivos foram utilizados para gerar nossa base final com os sentimentos de cada modelo.
 ## webscraping.py
 Neste arquivo utilizamos a biblioteca google_play_scraper para extrair os comentários de cada aplicativo do Google Play Store. A primeira etapa consistiu na definição dos aplicativos a serem analisados, foram eles: 
@@ -23,6 +24,7 @@ Neste arquivo utilizamos a biblioteca google_play_scraper para extrair os come
 - C6 bank
 - XP investimentos
 - Banco Inter
+
 Posteriormente, aplicamos alguns filtros de idioma, aplicamos também o sort.newest para obter as avaliações mais recentes, e por fim limitamos um número máximo de 8000 avaliações por aplicativo, o que nos proporcionou uma amostra ampla e variada para a análise de sentimentos.
 Após rodar o código, extraimos o app_reviews.csv.
 ## llmbert.py
