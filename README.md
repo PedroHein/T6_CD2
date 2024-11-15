@@ -43,6 +43,9 @@ Neste código, nós criamos uma interface no Streamlit para analisar e comparar 
 
 ## Conclusões
 ### Video de apresentação
+
+https://github.com/user-attachments/assets/1d780c03-b9bd-4678-871b-2b9e1bae6510
+
 [Acesse o vídeo aqui!](https://youtu.be/f_4I5dI4NwM)
 
 ### Artigo
