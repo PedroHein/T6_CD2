@@ -12,12 +12,6 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 # Com o arquivo df_short em mãos começamos as previsões
 df_short = pd.read_csv('df_short.csv')
 
-# LabelEncoder
-le_sentiment = LabelEncoder()
-le_label = LabelEncoder()
-df_short['sentiment'] = le_sentiment.fit_transform(df_short['sentiment'])
-df_short['label'] = le_label.fit_transform(df_short['label'])
-
 # Vetorizando os comentários
 vectorizer = TfidfVectorizer(max_features=1000)
 X = vectorizer.fit_transform(df_short['content']).toarray()
@@ -81,14 +75,6 @@ best_model_label = train_and_evaluate(models, X_train_label, X_test_label, y_tra
 # Previsões completas e salvando no DataFrame original
 df_short['sentiment_pred'] = best_model_sentiment.predict(X)
 df_short['label_pred'] = best_model_label.predict(X)
-
-# Decodificando para os valores originais
-df_short['sentiment_pred'] = le_sentiment.inverse_transform(df_short['sentiment_pred'])
-df_short['label_pred'] = le_label.inverse_transform(df_short['label_pred'])
-
-# Decodificando para valores originais
-df_short['sentiment'] = le_sentiment.inverse_transform(df_short['sentiment'])
-df_short['label'] = le_label.inverse_transform(df_short['label'])
 
 # DataFrame final
 df_short_new = df_short[['appId','content', 'sentiment', 'sentiment_pred', 'label', 'label_pred', 'at']]
