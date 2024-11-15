@@ -46,5 +46,6 @@ Neste código, nós criamos uma interface no Streamlit para analisar e comparar 
 [Acesse o vídeo aqui!](https://youtu.be/f_4I5dI4NwM)
 
 ### Artigo
+[Acesse o artigo aqui!](./Artigo Projeto Semestral - Ranking de Sentimentos.pdf)
 
 ## Como executar o código
