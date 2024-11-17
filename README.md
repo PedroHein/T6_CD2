@@ -1,11 +1,11 @@
-# Ranking de Apps de Bancos Mais Bem Avaliados da Google Play
+# Ranking de Apps de Bancos mais bem Avaliados da Google Play
 Trabalho semestral de Ciência de Dados do Instituto Mauá de Tecnologia
 - Fernando Henriques Neto – 18.00931-0
 - Guilherme Sanches Rossi – 19.02404-5
 - Pedro Henrique Sant Anna Hein – 20.00134-7
 - Matheus Coelho Rocha Pinto – 20.00391-9
 
-## Sobre o projeto
+## Sobre o Projeto
 Este estudo desenvolve um sistema automatizado para medir a satisfação dos usuários de aplicativos bancários, utilizando o LLM Bert e aprendizado de máquina para análise de sentimentos. Com dados coletados da Google Play Store, o sistema cria um ranking dos aplicativos mais bem avaliados em um intervalo de datas pré-definidas, permitindo uma visão quantitativa e qualitativa sobre a experiência dos clientes. A interface em Streamlit e a execução em Docker facilitam a visualização e acessibilidade dos dados para gestores, que podem acompanhar a evolução semanal das percepções dos usuários. Este sistema pode orientar melhorias contínuas, ajudando instituições financeiras a adaptarem-se melhor às demandas do mercado digital.
 
 ## Documentação do Projeto
@@ -42,7 +42,7 @@ Com o arquivo do LLM Bert gerado pudemos aplicar o pré-processamento, treino e 
 Neste código, nós criamos uma interface no Streamlit para analisar e comparar as avaliações ue até então analisamos. Primeiramente, carregamos e refinamos os dados, em seguida, calculamos as porcentagens de sentimentos (positivo, negativo e neutro) por aplicativo, utilizando as colunas de sentimentos reais e previstas pelos modelos (sentiment, label, sentiment_pred e label_pred). Seguindo, ordenamos os bancos com base na porcentagem de sentimentos positivos e exibimos um ranking que compara os valores reais e previstos de cada banco.
 
 ## Conclusões
-### Video de apresentação
+### Video de Apresentação
 
 https://github.com/user-attachments/assets/1d780c03-b9bd-4678-871b-2b9e1bae6510
 
@@ -51,7 +51,14 @@ https://github.com/user-attachments/assets/1d780c03-b9bd-4678-871b-2b9e1bae6510
 ### Artigo
 [Acesse o artigo aqui!](Artigo%20Projeto%20Semestral%20-%20Ranking%20de%20Sentimentos.pdf)
 
-## Como executar o código via docker
+## Execução do Código via Docker
 
+1. Executar o Comando Abaixo:
 ```bash
 docker container run -d -p 8501:8501 richkelman/text-classification-llm:v1
+```
+
+2. Abrir o Navegador e Acessar a URL Abaixo:
+```bash
+http://localhost:8501
+```
