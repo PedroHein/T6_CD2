@@ -9,7 +9,7 @@ Trabalho semestral de Ciência de Dados do Instituto Mauá de Tecnologia
 Este estudo desenvolve um sistema automatizado para medir a satisfação dos usuários de aplicativos bancários, utilizando o LLM Bert e aprendizado de máquina para análise de sentimentos. Com dados coletados da Google Play Store, o sistema cria um ranking dos aplicativos mais bem avaliados em um intervalo de datas pré-definidas, permitindo uma visão quantitativa e qualitativa sobre a experiência dos clientes. A interface em Streamlit e a execução em Docker facilitam a visualização e acessibilidade dos dados para gestores, que podem acompanhar a evolução semanal das percepções dos usuários. Este sistema pode orientar melhorias contínuas, ajudando instituições financeiras a adaptarem-se melhor às demandas do mercado digital.
 
 ## Documentação do Projeto
-O Projeto é composto de 2 arquivos principais:
+O Projeto é composto de 4 arquivos principais:
 - main.py
 - webscraping.py
 - llmbert.py
@@ -55,7 +55,7 @@ https://github.com/user-attachments/assets/1d780c03-b9bd-4678-871b-2b9e1bae6510
 
 1. Executar o Comando Abaixo:
 ```bash
-docker container run -d -p 8501:8501 richkelman/text-classification-llm:v1
+docker container run -d -p 8501:8501 richkelman/text-classification-llm:latest
 ```
 
 2. Abrir o Navegador e Acessar a URL Abaixo:
