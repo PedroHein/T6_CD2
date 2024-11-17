@@ -54,7 +54,7 @@ if len(date_range) == 2:
     start_date, end_date = date_range
     df_reviews_filtered = df_short_new[(df_short_new['at'] >= pd.to_datetime(start_date)) & (df_short_new['at'] <= pd.to_datetime(end_date))]
 
-    # Separando por banco os sentimentos da coluna 'sentiment'
+    # Separando por banco os sentimentos da coluna 'sentiment' - Score Real
     sentimentos_por_banco_sentiment = {}
     for index, row in df_reviews_filtered.iterrows():
         app_id = row['appId']
@@ -69,7 +69,7 @@ if len(date_range) == 2:
     # Calculando as porcentagens por banco com a coluna 'sentiment'
     porcentagens_por_banco_sentiment = calcular_porcentagens(sentimentos_por_banco_sentiment)
 
-    # Separando por banco os sentimentos da coluna 'label'
+    # Separando por banco os sentimentos da coluna 'label' - Score LLM Bert
     sentimentos_por_banco_label = {}
     for index, row in df_reviews_filtered.iterrows():
         app_id = row['appId']
@@ -84,7 +84,7 @@ if len(date_range) == 2:
     # Calculando as porcentagens por banco com a coluna 'label'
     porcentagens_por_banco_label = calcular_porcentagens(sentimentos_por_banco_label)
 
-    # Separando por banco os sentimentos previstos da coluna 'sentiment_pred'
+    # Separando por banco os sentimentos previstos da coluna 'sentiment_pred' - Predição Score Real
     sentimentos_por_banco_sentiment_pred = {}
     for index, row in df_reviews_filtered.iterrows():
         app_id = row['appId']
@@ -99,7 +99,7 @@ if len(date_range) == 2:
     # Calculando as porcentagens sentimentos previstos por banco da coluna 'sentiment_pred'
     porcentagens_por_banco_sentiment_pred = calcular_porcentagens(sentimentos_por_banco_sentiment_pred)
 
-    # Separando por banco os sentimentos previstos da coluna 'label_pred'
+    # Separando por banco os sentimentos previstos da coluna 'label_pred' - Predição Score LLM Bert
     sentimentos_por_banco_label_pred = {}
     for index, row in df_reviews_filtered.iterrows():
         app_id = row['appId']
@@ -114,14 +114,11 @@ if len(date_range) == 2:
     # Calculando as porcentagens de sentimentos previstos por banco
     porcentagens_por_banco_label_pred = calcular_porcentagens(sentimentos_por_banco_label_pred)
 
-    # Ordenando o ranking com base na porcentagem positiva (label)
+    # Ordenando o ranking com base na porcentagem positiva do Score LLM Bert
     ranking_label = ranking_bancos(porcentagens_por_banco_label)
 
     # Exibindo o ranking
-    st.subheader("Ranking - Comparativo Score Real vs Score LLM Bert")
-    
-    st.write("Banco - Score LLM Bert")
-    st.write("Score Real - Predição RandomForest Real - Predição RandomForest Bert - Diferença Real - Diferença Bert")
+    st.subheader("Ranking - Score Real vs Score LLM Bert")
 
     for i, (bank_id, percentages) in enumerate(ranking_label):
         sentiment_pos = porcentagens_por_banco_sentiment.get(bank_id, {}).get('POSITIVE', 0)
@@ -129,9 +126,16 @@ if len(date_range) == 2:
         sentiment_pred_pos = porcentagens_por_banco_sentiment_pred.get(bank_id, {}).get('POSITIVE', 0)
         label_pred_pos = porcentagens_por_banco_label_pred.get(bank_id, {}).get('POSITIVE', 0)
 
-        # Calculando a diferença entre sentimento real e previsto
-        diff_sentiment = sentiment_pos - sentiment_pred_pos  # Sentiment - Sentiment Pred
-        diff_label = label_pos - label_pred_pos  # Label - Label Pred
+        # Calculando a acurácia
+        if sentiment_pos != 0:
+            accuracy_sentiment = 1 - abs(sentiment_pos - sentiment_pred_pos) / sentiment_pos
+        else:
+            accuracy_sentiment = 1 if sentiment_pos == sentiment_pred_pos else 0
+
+        if label_pos != 0:
+            accuracy_label = 1 - abs(label_pos - label_pred_pos) / label_pos
+        else:
+            accuracy_label = 1 if label_pos == label_pred_pos else 0
 
         # Definindo o tamanho da imagem e do texto com base na posição no ranking
         if i == 0:
@@ -156,12 +160,20 @@ if len(date_range) == 2:
         with col2:
             st.markdown(f"""
                 <div style='font-size: 24px;'>
-                    <strong>{i + 1}. {bank_id}: {label_pos:.2f}%</strong><br>
-                    <span style='font-size: 18px;'>{sentiment_pos:.2f}% - {sentiment_pred_pos:.2f}% - {label_pred_pos:.2f}% - {diff_sentiment:.2f}% - {diff_label:.2f}%</span>
+                    <strong>{i + 1}. {bank_id}: {label_pos:.2f}% - {label_pred_pos:.2f}% - {accuracy_label:.2%}</strong><br>
+                    <span style='font-size: 18px;'>{sentiment_pos:.2f}% - {sentiment_pred_pos:.2f}% - {accuracy_sentiment:.2%}</span>
                 </div>
             """, unsafe_allow_html=True)
             
-# Calculando a acurácia
+    st.markdown("""
+        <div style="line-height: 1.2;">
+            <strong>Legenda:</strong><br>
+            Score LLM Bert - Predição RandomForest Bert - Acurácia Bert<br>
+            Score Real - Predição RandomForest Real - Acurácia Real
+        </div>
+    """, unsafe_allow_html=True)
+            
+# Calculando a acurácia do LLM Bert
 accuracy = accuracy_score(df_short_new['sentiment'], df_short_new['label'])
 accuracy_percent = accuracy * 100
 st.markdown(f"<h3 style='font-size:14px;'>Acurácia LLM Bert: {accuracy_percent:.2f}%</h3>", unsafe_allow_html=True)
