@@ -51,4 +51,6 @@ https://github.com/user-attachments/assets/1d780c03-b9bd-4678-871b-2b9e1bae6510
 ### Artigo
 [Acesse o artigo aqui!](Artigo%20Projeto%20Semestral%20-%20Ranking%20de%20Sentimentos.pdf)
 
-## Como executar o código
+## Como executar o código via docker
+
+docker container run -d -p 8501:8501 richkelman/text-classification-llm:latest
